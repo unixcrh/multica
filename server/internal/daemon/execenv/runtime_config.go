@@ -52,10 +52,13 @@ func buildMetaSkillContent(ctx TaskContextForEnv) string {
 	b.WriteString("- `multica issue update <id> [--title X] [--description X] [--priority X]` — Update issue fields\n\n")
 
 	b.WriteString("### Workflow\n")
+	b.WriteString("You are responsible for managing the issue status throughout your work.\n\n")
 	fmt.Fprintf(&b, "1. Run `multica issue get %s --output json` to understand your task\n", ctx.IssueID)
-	b.WriteString("2. Read comments for additional context or human instructions\n")
-	b.WriteString("3. Complete the work in the local codebase\n")
-	b.WriteString("4. Post a comment summarizing what you did\n\n")
+	fmt.Fprintf(&b, "2. Run `multica issue status %s in_progress` to mark it as started\n", ctx.IssueID)
+	b.WriteString("3. Read comments for additional context or human instructions\n")
+	b.WriteString("4. Complete the work in the local codebase\n")
+	fmt.Fprintf(&b, "5. Run `multica issue status %s done` (or `in_review` if human review is needed)\n", ctx.IssueID)
+	fmt.Fprintf(&b, "6. If blocked, run `multica issue status %s blocked` and post a comment explaining why\n\n", ctx.IssueID)
 
 	if len(ctx.AgentSkills) > 0 {
 		b.WriteString("## Skills\n\n")
