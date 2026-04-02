@@ -134,6 +134,13 @@ func buildMetaSkillContent(provider string, ctx TaskContextForEnv) string {
 	b.WriteString("- **Agent**: `[@Name](mention://agent/<agent-id>)` — renders as a styled mention\n\n")
 	b.WriteString("Use `multica issue list --output json` to look up issue IDs, and `multica workspace members --output json` for member IDs.\n\n")
 
+	b.WriteString("## Attachments\n\n")
+	b.WriteString("Issues and comments may include file attachments (images, documents, etc.). Each attachment has two URL fields:\n\n")
+	b.WriteString("- `url` — Unsigned URL for web rendering. **Do not use this to download files** — it may not be accessible.\n")
+	b.WriteString("- `download_url` — Signed URL for downloading. **Always use this URL** to fetch or view attachment content.\n\n")
+	b.WriteString("When you need to view an image attachment, download it using `download_url` first (e.g. `curl -o /tmp/image.png '<download_url>'`), then read the local file.\n")
+	b.WriteString("Signed URLs expire after a short period. If a download fails with a 403 error, re-run `multica issue get` or `multica issue comment list` to get fresh URLs.\n\n")
+
 	b.WriteString("## Output\n\n")
 	b.WriteString("Keep comments concise and natural — state the outcome, not the process.\n")
 	b.WriteString("Good: \"Fixed the login redirect. PR: https://...\"\n")

@@ -51,7 +51,7 @@ func (h *Handler) attachmentToResponse(a db.Attachment) AttachmentResponse {
 		CreatedAt:    a.CreatedAt.Time.Format("2006-01-02T15:04:05Z07:00"),
 	}
 	if h.CFSigner != nil {
-		resp.DownloadURL = h.CFSigner.SignedURL(a.Url, time.Now().Add(5*time.Minute))
+		resp.DownloadURL = h.CFSigner.SignedURL(a.Url, time.Now().Add(30*time.Minute))
 	}
 	if a.IssueID.Valid {
 		s := uuidToString(a.IssueID)
