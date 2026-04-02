@@ -51,7 +51,8 @@ func buildMetaSkillContent(provider string, ctx TaskContextForEnv) string {
 	b.WriteString("- `multica workspace get --output json` — Get workspace details and context\n")
 	b.WriteString("- `multica agent list --output json` — List agents in workspace\n")
 	b.WriteString("- `multica issue runs <issue-id> --output json` — List all execution runs for an issue (status, timestamps, errors)\n")
-	b.WriteString("- `multica issue run-messages <task-id> [--since <seq>] --output json` — List messages for a specific execution run (supports incremental fetch)\n\n")
+	b.WriteString("- `multica issue run-messages <task-id> [--since <seq>] --output json` — List messages for a specific execution run (supports incremental fetch)\n")
+	b.WriteString("- `multica attachment download <id> [-o <dir>]` — Download an attachment file locally by ID\n\n")
 
 	b.WriteString("### Write\n")
 	b.WriteString("- `multica issue comment add <issue-id> --content \"...\" [--parent <comment-id>]` — Post a comment (use --parent to reply to a specific comment)\n")
@@ -135,11 +136,11 @@ func buildMetaSkillContent(provider string, ctx TaskContextForEnv) string {
 	b.WriteString("Use `multica issue list --output json` to look up issue IDs, and `multica workspace members --output json` for member IDs.\n\n")
 
 	b.WriteString("## Attachments\n\n")
-	b.WriteString("Issues and comments may include file attachments (images, documents, etc.). Each attachment has two URL fields:\n\n")
-	b.WriteString("- `url` — Unsigned URL for web rendering. **Do not use this to download files** — it may not be accessible.\n")
-	b.WriteString("- `download_url` — Signed URL for downloading. **Always use this URL** to fetch or view attachment content.\n\n")
-	b.WriteString("When you need to view an image attachment, download it using `download_url` first (e.g. `curl -o /tmp/image.png '<download_url>'`), then read the local file.\n")
-	b.WriteString("Signed URLs expire after a short period. If a download fails with a 403 error, re-run `multica issue get` or `multica issue comment list` to get fresh URLs.\n\n")
+	b.WriteString("Issues and comments may include file attachments (images, documents, etc.).\n")
+	b.WriteString("Use the download command to fetch attachment files locally:\n\n")
+	b.WriteString("```\nmultica attachment download <attachment-id>\n```\n\n")
+	b.WriteString("This downloads the file to the current directory and prints the local path. Use `-o <dir>` to save elsewhere.\n")
+	b.WriteString("After downloading, you can read the file directly (e.g. view an image, read a document).\n\n")
 
 	b.WriteString("## Output\n\n")
 	b.WriteString("Keep comments concise and natural — state the outcome, not the process.\n")
