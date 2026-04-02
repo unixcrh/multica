@@ -773,9 +773,8 @@ export function IssueDetail({ issueId, onDelete, defaultSidebarOpen = true, layo
                   if (group.type === "comment") {
                     const entry = group.entries[0]!;
                     return (
-                      <div id={`comment-${entry.id}`}>
+                      <div key={entry.id} id={`comment-${entry.id}`}>
                         <CommentCard
-                          key={entry.id}
                           issueId={id}
                           entry={entry}
                           allReplies={repliesByParent}
